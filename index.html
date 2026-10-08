@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ef">
+  <meta name="description" content="成都同性恋交友。">
+  <title>成都同性恋交友</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f3ef;
+      --ink: #242321;
+      --muted: #77736c;
+      --line: rgba(36, 35, 33, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .page { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      padding: 48px 0 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 28px;
+    }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 42px); font-weight: 550; letter-spacing: .04em; }
+    .subtitle { margin: 9px 0 0; color: var(--muted); font-size: 14px; }
+    .count { color: var(--muted); font-size: 13px; letter-spacing: .12em; white-space: nowrap; }
+    .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding-bottom: 56px; }
+    figure { margin: 0; }
+    .photo-button {
+      display: block;
+      position: relative;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 5px;
+      background: #e6e1db;
+      cursor: zoom-in;
+    }
+    .photo-button img { display: block; width: 100%; height: auto; transition: transform .45s ease; }
+    .photo-button:hover img { transform: scale(1.015); }
+    figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 12px 2px 0; color: var(--muted); font-size: 12px; letter-spacing: .08em; }
+    footer { padding: 18px 0 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 5; display: none; align-items: center; justify-content: center;
+      padding: 24px; background: rgba(15, 15, 16, .94); cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { display: block; max-width: min(100%, 1100px); max-height: 100%; object-fit: contain; box-shadow: 0 12px 60px rgba(0,0,0,.35); }
+    .close { position: fixed; top: 18px; right: 22px; border: 0; background: none; color: white; font-size: 32px; line-height: 1; cursor: pointer; }
+    @media (max-width: 700px) {
+      .page { width: min(100% - 28px, 520px); }
+      header { padding: 30px 0 18px; margin-bottom: 16px; }
+      .gallery { grid-template-columns: 1fr; gap: 24px; padding-bottom: 36px; }
+      figcaption { padding-top: 9px; }
+      .lightbox { padding: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>同性恋交友</h1>
+        <p class="subtitle">成都 · 认识新朋友</p>
+      </div>
+      <span class="count">PHOTO · 02</span>
+    </header>
+    <section class="gallery" aria-label="照片">
+      <figure>
+        <button class="photo-button" type="button" aria-label="放大查看照片 1">
+          <img src="images/photo-01.jpg" alt="夜晚户外拍摄的照片" loading="eager">
+        </button>
+        <figcaption><span>照片 01</span><span>点击放大</span></figcaption>
+      </figure>
+      <figure>
+        <button class="photo-button" type="button" aria-label="放大查看照片 2">
+          <img src="images/photo-02.jpg" alt="室内拍摄的照片" loading="eager">
+        </button>
+        <figcaption><span>照片 02</span><span>点击放大</span></figcaption>
+      </figure>
+    </section>
+    <footer>成都 · 同性恋交友</footer>
+  </main>
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="照片放大查看" tabindex="-1">
+    <button class="close" type="button" aria-label="关闭">×</button>
+    <img alt="">
+  </div>
+  <script>
+    const lightbox = document.querySelector('.lightbox');
+    const enlarged = lightbox.querySelector('img');
+    const closeButton = lightbox.querySelector('.close');
+    document.querySelectorAll('.photo-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const image = button.querySelector('img');
+        enlarged.src = image.src;
+        enlarged.alt = image.alt;
+        lightbox.classList.add('open');
+        lightbox.focus();
+      });
+    });
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      enlarged.removeAttribute('src');
+    }
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
+
+
+
